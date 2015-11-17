@@ -1,6 +1,8 @@
 # Copyright (C) 2015 Swift Navigation Inc.
 # Contact: Fergus Noble <fergus@swiftnav.com>
 #
+#Modified 2015-11-16 by Kevin Hansen (newbie 'programmer')
+#
 # This source is subject to the license found in the file 'LICENSE' which must
 # be be distributed together with this source. All other rights reserved.
 #
@@ -27,8 +29,8 @@ def main():
                       help="specify the serial port to use.")
   args = parser.parse_args()
 
-  # Open a connection to Piksi using the default baud rate (1Mbaud)
-  with PySerialDriver(args.port[0], baud=1000000) as driver:
+  # Open a connection to Piksi using the reduced (masked) baud rate (115200 baud)
+  with PySerialDriver(args.port[0], baud=115200) as driver:
     with Handler(Framer(driver.read, None, verbose=True)) as source:
       try:
         for msg, metadata in source.filter(SBP_MSG_BASELINE_NED):
